@@ -16,9 +16,9 @@ def internet(Host="8.8.8.8", port=53, timeout=3):
     try:
         socket.setdefaulttimeout(timeout)
         socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((Host, port))
-        socket.setdefaulttimeout(15)
         return True
     except Exception:
+        socket.setdefaulttimeout(30)
         return False
 
 
@@ -37,10 +37,12 @@ if __name__=="__main__":
     
     pyautogui.PAUSE = 2
     
+    time.sleep(5)
     if internet() is False:
         pyautogui.click(x=1135, y=745)
         pyautogui.click(x=1198, y=185)
         pyautogui.click(x=1242, y=273)
+        pyautogui.hotkey("alt","tab")
         pyautogui.sleep(5) 
         
     # Obtendo opcoes
@@ -72,8 +74,9 @@ if __name__=="__main__":
         search_bar.send_keys(Keys.ENTER)
         time.sleep(3)
         video = w.find_element_by_xpath('/html/body/ytd-app/div/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-playlist-renderer[1]/div/a/h3/span')
-        time.sleep(1)
+        time.sleep(2)
         video.click()
+        
     elif option != '3':
         
         # Iniciando Chrome
